@@ -1,4 +1,4 @@
-spring:
+---
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
@@ -9,4 +9,17 @@ spring:
     producer:
       bootstrap-servers: localhost:9092
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializ
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/skillguest-db"
+    username: postgres
+    password: postgres
+  sql:
+    init:
+      platform: postgres

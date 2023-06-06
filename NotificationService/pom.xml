@@ -28,10 +28,10 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+      <!--  <dependency>
             <groupId>com.labjava.skillguest</groupId>
             <artifactId>api</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
