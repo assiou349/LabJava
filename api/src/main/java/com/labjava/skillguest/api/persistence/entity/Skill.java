@@ -16,5 +16,15 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "technical_advisor_id")
+    private TechnicalAdvisor technicalAdvisor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_position_id")
+    private JobPosition jobPosition;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "level_of_expertise_id")
+    private LevelOfExpertise levelOfExpertise;
 }

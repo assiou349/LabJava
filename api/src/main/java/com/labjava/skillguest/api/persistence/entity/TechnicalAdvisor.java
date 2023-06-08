@@ -16,15 +16,13 @@ public class TechnicalAdvisor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    private LineOfBusiness lineOfBusiness;
+    @Column(name = "email")
+    private String email;
 
-    @ManyToOne
-    private LevelOfExpertise levelOfExpertise;
+    @Column(name = "status")
+    private boolean active;
 
-
-
-    // Constructors, getters, setters, etc.
 }
