@@ -1,14 +1,6 @@
 services:
-  postgres:
-    image: 'postgres:latest'
-    environment:
-      POSTGRES_DB: skillguest-db
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-    ports:
-      - 5433:5432
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.2.0
+    image: confluentinc/cp-zookeeper:latest
     ports:
       - 2181:2181
     environment:
@@ -16,7 +8,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    image: confluentinc/cp-kafka:6.2.0
+    image: confluentinc/cp-kafka:latest
     ports:
       - 9092:9092
     environment:
@@ -29,29 +21,3 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
-
-  interview:
-    build: TechnicalAdvisorService
-    mem_limit: 350m
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  notification:
-    build: Notificationservice
-    mem_limit: 350m
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  technicaladvisor:
-    build: TechnicalAdvisorservice
-    mem_limit: 350m
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
-  api:
-    build: api
-    mem_limit: 350m
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker

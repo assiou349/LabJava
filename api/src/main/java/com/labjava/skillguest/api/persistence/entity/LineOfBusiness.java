@@ -1,19 +1,16 @@
 package com.labjava.skillguest.api.persistence.entity;
 
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class LineOfBusiness {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
     @Column(name = "name")

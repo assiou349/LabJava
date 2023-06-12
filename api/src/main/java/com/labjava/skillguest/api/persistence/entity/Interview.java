@@ -1,19 +1,17 @@
 package com.labjava.skillguest.api.persistence.entity;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
+import lombok.Data;
+
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Table(name = "Interview")
 public class Interview {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
     @Column(name = "requester_name")
@@ -25,12 +23,11 @@ public class Interview {
     @Column(name = "person_to_meet")
     private String personToMeet;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_position_id")
     private JobPosition jobPosition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "level_of_expertise_id")
     private LevelOfExpertise levelOfExpertise;
 
     @Column(name = "description")

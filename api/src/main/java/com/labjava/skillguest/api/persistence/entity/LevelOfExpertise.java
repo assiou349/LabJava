@@ -1,21 +1,19 @@
 package com.labjava.skillguest.api.persistence.entity;
 
+ public enum LevelOfExpertise {
+    A("Junior"),
+    B("Intermédiaire"),
+    C("Senior"),
+    D("Senior"),
+    E("Senior+");
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+    private String name;
 
-import javax.persistence.*;
+    LevelOfExpertise(String name) {
+        this.name = name;
+    }
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-public class LevelOfExpertise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "value")
-    private String value;
+    public String getName() {
+        return this.name;
+    }
 }

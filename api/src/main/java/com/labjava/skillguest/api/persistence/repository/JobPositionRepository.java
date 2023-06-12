@@ -6,4 +6,6 @@ import com.labjava.skillguest.api.persistence.entity.JobPosition;
 
 @Repository
 public interface JobPositionRepository extends JpaRepository<JobPosition, Long> {
+
+    JobPosition findByName(String jobPositionName);
 }

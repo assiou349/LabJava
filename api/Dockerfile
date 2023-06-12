@@ -1,10 +1,9 @@
 FROM eclipse-temurin:17-jdk-jammy
 
+EXPOSE 8080
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:resolve
+ARG JAR_FILE=target/*.jar
 
-COPY src ./src
+ADD ${JAR_FILE} app.jar
 
-CMD ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["java","-jar","/app.jar"]

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/line-of-business")
+@RequestMapping("/api/technical-advisor")
 public class TechnicalAdvisorController {
     @Autowired
     private TechnicalAdvisorRepository technicalAdvisorRepository;
