@@ -1,18 +1,12 @@
 package com.labjava.skillguest.api.service.mail;
 
-import com.labjava.skillguest.api.persistence.entity.Interview;
-import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
+import com.labjava.skillguest.api.persistence.interfaces.INotificationEntity;
 import com.labjava.skillguest.api.service.integration.Event;
-import com.labjava.skillguest.api.utils.dto.InterviewTechAdvisorDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class EmailService {
@@ -33,10 +27,10 @@ public class EmailService {
 
 
     @KafkaListener(topics = "technicalAdvisor-topic", groupId = "technicalAdvisor" )
-    public void sendMailOnUserChange(Event<Long, InterviewTechAdvisorDto> event ){
+    public void sendMailOnUserChange(Event<Long, INotificationEntity> event ){
             switch (event.getEventType()) {
                 case FOUND:
-                    simpleMailMessage.setTo(event.getData().getEmail());
+                    simpleMailMessage.setTo(event.getData().getTechEmail());
                     simpleMailMessage.setText(event.getData().getDescription());
                     break;
                 case NOTFOUND:
@@ -47,7 +41,7 @@ public class EmailService {
                     break;
             }
 
-        simpleMailMessage.setSubject(event.getData().getJobPosition());
+        simpleMailMessage.setSubject(event.getData().getSubjet());
         javaMailSender.send(simpleMailMessage);
         }
 

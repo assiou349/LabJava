@@ -1,4 +1,4 @@
-package com.labjava.skillguest.api.service.mail;
+package com.labjava.skillguest.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

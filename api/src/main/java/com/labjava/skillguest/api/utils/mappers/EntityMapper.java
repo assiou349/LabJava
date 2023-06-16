@@ -2,7 +2,7 @@ package com.labjava.skillguest.api.utils.mappers;
 
 import com.labjava.skillguest.api.persistence.entity.Interview;
 import com.labjava.skillguest.api.persistence.entity.JobPosition;
-import com.labjava.skillguest.api.persistence.entity.LevelOfExpertise;
+import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import com.labjava.skillguest.api.persistence.repository.JobPositionRepository;
 import com.labjava.skillguest.api.utils.dto.InterviewDto;
 import org.mapstruct.Context;
@@ -36,6 +36,7 @@ public interface EntityMapper {
         throw new IllegalArgumentException("Invalid LevelOfExpertise: " + levelOfExpertise);
     }
 
+    @Mapping(target = "techEmail", source = "jobPosition.name")
     @Mapping(target = "jobPosition", source = "jobPosition.name")
     @Mapping(target = "levelOfExpertise", expression = "java(interview.getLevelOfExpertise().getName())")
     InterviewDto toInterviewDto(Interview interview);

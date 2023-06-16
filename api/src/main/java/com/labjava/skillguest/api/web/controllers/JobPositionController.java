@@ -1,4 +1,4 @@
-package com.labjava.skillguest.api.controllers;
+package com.labjava.skillguest.api.web.controllers;
 
 import com.labjava.skillguest.api.persistence.entity.JobPosition;
 import com.labjava.skillguest.api.persistence.entity.LineOfBusiness;

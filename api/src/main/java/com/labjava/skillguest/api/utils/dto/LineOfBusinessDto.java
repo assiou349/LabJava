@@ -3,6 +3,6 @@ package com.labjava.skillguest.api.utils.dto;
 import lombok.Data;
 
 @Data
-public class LineOfBusinessDTO {
+public class LineOfBusinessDto {
     private String name;
 }

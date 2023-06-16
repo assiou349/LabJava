@@ -1,9 +1,9 @@
 FROM eclipse-temurin:17-jdk-jammy
 
-EXPOSE 8080
+RUN mkdir -p /usr/src/core
+ADD target/api-0.0.1-SNAPSHOT.jar /usr/src/core
 
-ARG JAR_FILE=target/*.jar
+WORKDIR /usr/src/core
 
-ADD ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-Xmx7G","-Xms1G","-jar","api-0.0.1-SNAPSHOT.jar"]

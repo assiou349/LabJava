@@ -2,6 +2,7 @@ package com.labjava.skillguest.api;
 
 import com.labjava.skillguest.api.persistence.entity.*;
 import com.labjava.skillguest.api.persistence.repository.*;
+import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

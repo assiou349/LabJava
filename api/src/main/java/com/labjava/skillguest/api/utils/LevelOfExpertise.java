@@ -1,4 +1,4 @@
-package com.labjava.skillguest.api.persistence.entity;
+package com.labjava.skillguest.api.utils;
 
  public enum LevelOfExpertise {
     A("Junior"),

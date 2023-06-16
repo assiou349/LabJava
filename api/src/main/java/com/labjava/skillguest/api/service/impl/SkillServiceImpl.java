@@ -1,12 +1,10 @@
 package com.labjava.skillguest.api.service.impl;
 
 import com.labjava.skillguest.api.persistence.entity.JobPosition;
-import com.labjava.skillguest.api.persistence.entity.LevelOfExpertise;
+import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import com.labjava.skillguest.api.persistence.entity.Skill;
-import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
-import com.labjava.skillguest.api.persistence.repository.InterviewRepository;
 import com.labjava.skillguest.api.persistence.repository.SkillRepository;
-import com.labjava.skillguest.api.service.SkillService;
+import com.labjava.skillguest.api.service.interfaces.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

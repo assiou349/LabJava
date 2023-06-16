@@ -3,7 +3,7 @@ package com.labjava.skillguest.api.utils.dto;
 import lombok.Data;
 
 @Data
-public class JobPositionDTO {
+public class JobPositionDto {
 
     private String name;
     private Long lineOfBusinessId;

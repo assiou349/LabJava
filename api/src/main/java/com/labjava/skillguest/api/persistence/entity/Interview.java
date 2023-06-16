@@ -2,6 +2,8 @@ package com.labjava.skillguest.api.persistence.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.labjava.skillguest.api.persistence.interfaces.IEntity;
+import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "Interview")
-public class Interview {
+public class Interview  implements IEntity {
     @Id @GeneratedValue
     private Long id;
 

@@ -104,10 +104,6 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
@@ -116,10 +112,37 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.0.1-jre</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.labjava.skillguest.api.ApiApplication</mainClass>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -150,6 +173,14 @@
                         </compilerArg>
                     </compilerArgs>
                 </configuration>
+
+                <!--<executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
             </plugin>
         </plugins>
     </build>

@@ -1,6 +1,7 @@
-package com.labjava.skillguest.api.service;
+package com.labjava.skillguest.api.service.interfaces;
 
 import com.labjava.skillguest.api.persistence.entity.*;
+import com.labjava.skillguest.api.utils.LevelOfExpertise;
 
 import java.util.List;
 

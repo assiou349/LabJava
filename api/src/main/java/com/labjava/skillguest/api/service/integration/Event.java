@@ -1,12 +1,14 @@
 package com.labjava.skillguest.api.service.integration;
 
+import com.labjava.skillguest.api.persistence.interfaces.INotificationEntity;
+
 import java.io.Serializable;
 
 import java.time.LocalDateTime;
 
 import static java.time.LocalDateTime.now;
 
-public class Event<K, T> {
+public class Event<K, T extends INotificationEntity> {
     public enum Type {CREATE, FOUND, NOTFOUND,  ACCEPTED}
 
     private Event.Type eventType;
