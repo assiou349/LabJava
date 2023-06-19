@@ -27,15 +27,13 @@ public class InterviewController extends AbstractController<Interview> {
     }
 
 
-
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Interview createInterview(@RequestBody InterviewDto interviewDto) {
         Interview interview = entityMapper.toInterview(interviewDto, jobPositionRepository);
-        Interview internalSaved = createInternal(interview);
-        interviewService.addInterview(interviewDto);
-        return internalSaved;
+        Interview interviewSaved = createInternal(interview);
+        interviewService.processInterview(interviewSaved);
+        return interviewSaved;
     }
 
     @Override

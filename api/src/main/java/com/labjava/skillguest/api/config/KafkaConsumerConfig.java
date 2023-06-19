@@ -20,9 +20,9 @@ public class KafkaConsumerConfig {
     @Bean
     public Map<String,Object> conusmerConfig(){
         Map<String,Object> conusmerConfig = new HashMap<>();
-        conusmerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
+        conusmerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
         conusmerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        conusmerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, EventDeSerializer.class);
+        conusmerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         conusmerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "technicalAdvisor");
 
 

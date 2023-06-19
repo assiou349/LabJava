@@ -6,4 +6,4 @@ ADD target/api-0.0.1-SNAPSHOT.jar /usr/src/core
 WORKDIR /usr/src/core
 
 
-ENTRYPOINT ["java", "-Xmx7G","-Xms1G","-jar","api-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar","api-0.0.1-SNAPSHOT.jar"]

@@ -6,4 +6,6 @@ public interface INotificationEntity  extends IDto{
     String getRequesterEmail();
     String getDescription();
     String getSubjet();
+
+    void setTechEmail(String email);
 }

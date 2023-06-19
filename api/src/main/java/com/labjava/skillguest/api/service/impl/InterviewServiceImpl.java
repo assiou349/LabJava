@@ -8,15 +8,19 @@ import com.labjava.skillguest.api.service.TechnicalAdvisorService;
 import com.labjava.skillguest.api.service.interfaces.AbstractService;
 import com.labjava.skillguest.api.service.interfaces.InterviewService;
 import com.labjava.skillguest.api.service.integration.Event;
+import com.labjava.skillguest.api.service.interfaces.MessagingService;
 import com.labjava.skillguest.api.utils.dto.InterviewDto;
+import com.labjava.skillguest.api.utils.exception.NotFoundException;
 import com.labjava.skillguest.api.utils.mappers.EntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InterviewServiceImpl extends AbstractService<Interview>  implements InterviewService {
@@ -29,8 +33,10 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
     @Autowired
     private InterviewRepository interviewRepository;
+
     @Autowired
-    KafkaTemplate kafkaTemplate;
+    private MessagingService messagingService;
+
 
     private final EntityMapper entityMapper;
 
@@ -41,9 +47,8 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
 
     @Override
-    public InterviewDto addInterview(InterviewDto interviewDto) {
-        kafkaTemplate.send("technicalAdvisor-topic", new Event(Event.Type.CREATE, null, interviewDto));
-        return interviewDto;
+    public void processInterview(Interview interview) {
+        messagingService.sendMessage("technicalAdvisor-topic",  interview.getId().toString());
     }
 
 
@@ -52,28 +57,21 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
         return interviewRepository;
     }
 
-    @Override
-    protected JpaSpecificationExecutor<Interview> getSpecificationExecutor() {
-        return null;
-    }
-
 
 
     @KafkaListener(topics = "technicalAdvisor-topic", groupId = "technicalAdvisor" )
-    public void processInterview(Event<Long, InterviewDto> event) {
+    public void onInterviewFound(@Payload(required = false)String event) throws NotFoundException {
 
-        Interview interview = entityMapper.toInterview(event.getData(), jobPositionRepository);
+        Interview interview = getDao().findById(Long.parseLong(event)).orElseThrow(()->  new NotFoundException());
 
-        List<TechnicalAdvisor> eligibleAdvisors = technicalAdvisorService.findEligibleAdvisors(interview);
+            List<TechnicalAdvisor> eligibleAdvisors = technicalAdvisorService.findEligibleAdvisors(interview);
 
-
-        if (!eligibleAdvisors.isEmpty()) {
-            for (TechnicalAdvisor advisor : eligibleAdvisors) {
-                event.getData().setTechEmail(advisor.getEmail());
-                kafkaTemplate.send("technicalAdvisor-topic", new Event(Event.Type.FOUND, advisor.getId(), event.getData()));
+            if (!eligibleAdvisors.isEmpty()) {
+                for (TechnicalAdvisor advisor : eligibleAdvisors) {
+                    messagingService.sendMessage("notification-topic",   advisor.getId().toString());
+                }
+            } else {
+                messagingService.sendMessage("notification-topic", interview.getId().toString());
             }
-        } else {
-            kafkaTemplate.send("technicalAdvisor-topic", new Event(Event.Type.NOTFOUND, null, event.getData()));
-        }
     }
 }

@@ -5,6 +5,6 @@ import com.labjava.skillguest.api.service.interfaces.IService;
 import com.labjava.skillguest.api.utils.dto.InterviewDto;
 
 public interface InterviewService  extends IService<Interview> {
-    InterviewDto addInterview(InterviewDto interviewDto);
+    void processInterview(Interview interview);
 
 }
