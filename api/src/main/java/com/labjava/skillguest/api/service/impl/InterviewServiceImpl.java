@@ -68,9 +68,13 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
             if (!eligibleAdvisors.isEmpty()) {
                 for (TechnicalAdvisor advisor : eligibleAdvisors) {
+                    //Todo : tu publies toujours uniquement des String
+                    //Todo : ton service ne devrait pas savoir que le principe de publication nécessite des topics
+                    //Ton système de messaging doit avoir lui cette responsabilité
                     messagingService.sendMessage("notification-topic",   advisor.getId().toString());
                 }
             } else {
+                //Todo : idem au dessus
                 messagingService.sendMessage("notification-topic", interview.getId().toString());
             }
     }

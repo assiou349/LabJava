@@ -18,6 +18,8 @@ public class MessagingServiceImpl implements MessagingService {
     }
 
     @Override
+    //Todo : a quoi sert cette méthode ?
+    //Utilisée nulle part, et tu mélanges de la production et de la consommation de messages dans cette classe
     public void consumeMessage(String topic) {
 
     }

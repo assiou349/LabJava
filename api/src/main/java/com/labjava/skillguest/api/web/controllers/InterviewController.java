@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/interview")
+//Todo : on avait parlé de mettre en place une centralisation des controllers et une simplification de ceux-ci pour n'avoir
+//aucun traitement dedans autre que l'appel au service
 public class InterviewController extends AbstractController<Interview> {
     @Autowired
     private InterviewService interviewService;

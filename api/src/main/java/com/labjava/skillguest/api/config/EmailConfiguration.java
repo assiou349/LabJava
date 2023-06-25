@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
+//Todo : tu as configuré pas mal de choses par le code, mais avec Spring Boot ca se fait via les fichiers de config
 public class EmailConfiguration {
     @Bean
     JavaMailSender javaMailSender(){

@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 
     @Override
+    //Todo : a quoi sert cette configuration ?
     public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
         final Optional<HttpMessageConverter<?>> converterFound = converters.stream()
             .filter(c -> c instanceof AbstractJackson2HttpMessageConverter)

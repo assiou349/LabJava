@@ -15,14 +15,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+//Todo : tu as configuré pas mal de choses par le code, mais avec Spring Boot ca se fait via les fichiers de config
 public class KafkaConsumerConfig {
 
     @Bean
     public Map<String,Object> conusmerConfig(){
+        //Todo : faute de frappe ;)
         Map<String,Object> conusmerConfig = new HashMap<>();
         conusmerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
         conusmerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         conusmerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        //Todo : interet de mettre un consumerGtoup specifique sous forme de config ?
         conusmerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "technicalAdvisor");
 
 

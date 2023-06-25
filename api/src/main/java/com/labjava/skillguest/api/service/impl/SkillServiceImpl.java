@@ -17,6 +17,9 @@ public class SkillServiceImpl implements SkillService {
     private SkillRepository skillRepository;
     @Override
     public List<Skill> getSkillByJobPositionAndLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise) {
+        //Todo : ca ne fait pas vraiment ce qui est demandé il me semble
+        //Tu ne prends pas les jobs parents et pour le niveau d'expertise tu prends ceux qui sont inférieurs
+        //et pas ceux qui sont supérieurs (ou éventuellement égaux)
         return skillRepository.findAllByJobPositionAndLevelOfExpertiseLessThan(jobPosition, levelOfExpertise);
     }
 }

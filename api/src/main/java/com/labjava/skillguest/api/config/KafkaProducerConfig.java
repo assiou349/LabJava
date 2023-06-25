@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+//Todo : tu as configuré pas mal de choses par le code, mais avec Spring Boot ca se fait via les fichiers de config
 public class KafkaProducerConfig {
     @Bean
     public Map<String,Object> producerConfig(){
