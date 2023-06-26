@@ -13,31 +13,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/interview")
-public class InterviewController extends AbstractController<Interview> {
-    @Autowired
-    private InterviewService interviewService;
+public class InterviewController  {
 
-    @Autowired
-    private JobPositionRepository jobPositionRepository;
+    private final InterviewService interviewService;
 
-    private final EntityMapper entityMapper;
-
-    public InterviewController(EntityMapper entityMapper) {
-        this.entityMapper = entityMapper;
+    public InterviewController( InterviewService interviewService) {
+        this.interviewService = interviewService;
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Interview createInterview(@RequestBody InterviewDto interviewDto) {
-        Interview interview = entityMapper.toInterview(interviewDto, jobPositionRepository);
-        Interview interviewSaved = createInternal(interview);
-        interviewService.processInterview(interviewSaved);
-        return interviewSaved;
+    public InterviewDto createInterview(@RequestBody InterviewDto interviewDto) {
+        return interviewService.saveInterview(interviewDto);
     }
 
-    @Override
-    protected IOperations<Interview> getService() {
-        return interviewService;
-    }
 }

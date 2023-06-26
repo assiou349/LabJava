@@ -19,8 +19,4 @@ public class JobPosition {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "line_of_business_id")
     private LineOfBusiness parentLineOfBusiness;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "superior_position_id")
-    private JobPosition superiorPosition;
 }

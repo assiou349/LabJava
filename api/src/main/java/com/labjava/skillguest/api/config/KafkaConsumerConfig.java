@@ -1,6 +1,6 @@
 package com.labjava.skillguest.api.config;
 
-import com.labjava.skillguest.api.service.integration.EventDeSerializer;
+import com.labjava.skillguest.api.service.integration.EventDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -18,20 +18,18 @@ import java.util.Map;
 public class KafkaConsumerConfig {
 
     @Bean
-    public Map<String,Object> conusmerConfig(){
-        Map<String,Object> conusmerConfig = new HashMap<>();
-        conusmerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
-        conusmerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        conusmerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        conusmerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "technicalAdvisor");
-
-
-        return conusmerConfig;
+    public Map<String,Object> consumerConfig(){
+        Map<String,Object> consumerConfig = new HashMap<>();
+        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, EventDeserializer.class);
+        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "app");
+        return consumerConfig;
     }
 
     @Bean
     public ConsumerFactory<String,Object> consumerFactory(){
-        return new DefaultKafkaConsumerFactory<>(conusmerConfig());
+        return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
     @Bean

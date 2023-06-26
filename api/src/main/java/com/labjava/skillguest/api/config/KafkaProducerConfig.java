@@ -1,5 +1,6 @@
 package com.labjava.skillguest.api.config;
 
+import com.labjava.skillguest.api.service.integration.Event;
 import com.labjava.skillguest.api.service.integration.EventSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -19,17 +20,17 @@ public class KafkaProducerConfig {
         Map<String,Object> producerConfig = new HashMap<>();
         producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
         producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, EventSerializer.class);
         return producerConfig;
     }
 
     @Bean
-    public ProducerFactory<String,Object> producerFactory(){
+    public ProducerFactory<String, Event> producerFactory(){
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<String,Object> kafkaTemplate(){
+    public KafkaTemplate<String,Event> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
 }

@@ -32,6 +32,9 @@ public class Interview  implements IEntity {
 
     private LevelOfExpertise levelOfExpertise;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TechnicalAdvisor technicalAdvisor;
+
     @Column(name = "description")
     private String description;
 

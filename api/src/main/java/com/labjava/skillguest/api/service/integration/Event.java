@@ -1,35 +1,39 @@
 package com.labjava.skillguest.api.service.integration;
 
-import com.labjava.skillguest.api.persistence.interfaces.INotificationEntity;
+
 
 import java.io.Serializable;
 
-import java.time.LocalDateTime;
-
-import static java.time.LocalDateTime.now;
-
-public class Event<T extends INotificationEntity> {
-    public enum Type {CREATE, FOUND, NOTFOUND,  ACCEPTED}
-
+public class Event implements Serializable {
+    public enum Type {INTERVIEW_CREATE, ELIGIBLE_TECH_FOUND, NO_TECH_AVAILABLE}
+    private String actor;
     private Event.Type eventType;
-    private T data;
+    private String data;
 
     public Event() {
-        this.eventType = null;
-        this.data = null;
     }
 
-    public Event(Type eventType, T data) {
-        this.eventType = eventType;
-        this.data = data;
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 
     public Type getEventType() {
         return eventType;
     }
 
-    public T getData() {
+    public void setEventType(Type eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getData() {
         return data;
     }
 
+    public void setData(String data) {
+        this.data = data;
+    }
 }

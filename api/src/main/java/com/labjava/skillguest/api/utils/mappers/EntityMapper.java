@@ -15,17 +15,9 @@ public interface EntityMapper {
 
     EntityMapper INSTANCE = Mappers.getMapper(EntityMapper.class);
 
-    @Mapping(target = "jobPosition", source = "jobPosition")
     @Mapping(target = "levelOfExpertise", source = "levelOfExpertise")
-    Interview toInterview(InterviewDto interviewDto, @Context JobPositionRepository jobPositionRepository);
-
-    default JobPosition mapJobPosition(String jobPositionName, @Context JobPositionRepository jobPositionRepository) {
-        JobPosition jobPosition = jobPositionRepository.findByName(jobPositionName);
-        if (jobPosition == null) {
-            throw new RuntimeException("JobPosition not found: " + jobPositionName);
-        }
-        return jobPosition;
-    }
+    @Mapping(target = "jobPosition", ignore = true)
+    Interview toInterview(InterviewDto interviewDtoy);
 
     default LevelOfExpertise mapLevelOfExpertise(String levelOfExpertise) {
         for (LevelOfExpertise value : LevelOfExpertise.values()) {

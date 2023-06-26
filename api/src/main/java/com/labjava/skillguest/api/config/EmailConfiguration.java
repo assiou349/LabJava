@@ -8,19 +8,19 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-@Configuration
+/*@Configuration
 public class EmailConfiguration {
     @Bean
-    JavaMailSender javaMailSender(){
+    JavaMailSender getJavaMailSender(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
-        javaMailSender.setUsername("axl.com");
-        javaMailSender.setPassword("x");
+        javaMailSender.setUsername("a.karabou77@gmail.com");
+        javaMailSender.setPassword("Struggle22,");
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.enable", "false");
         props.put("mail.debug", "true");
 
         return javaMailSender;
@@ -31,4 +31,4 @@ public class EmailConfiguration {
         return new SimpleMailMessage();
     }
 
-}
+}*/
