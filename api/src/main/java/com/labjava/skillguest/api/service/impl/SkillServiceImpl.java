@@ -13,8 +13,12 @@ import java.util.List;
 @Service
 public class SkillServiceImpl implements SkillService {
 
-    @Autowired
-    private SkillRepository skillRepository;
+    private final SkillRepository skillRepository;
+
+    public SkillServiceImpl(SkillRepository skillRepository) {
+        this.skillRepository = skillRepository;
+    }
+
     @Override
     public List<Skill> getSkillByJobPositionAndLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise) {
         return skillRepository.findAllByJobPositionAndLevelOfExpertiseLessThan(jobPosition, levelOfExpertise);

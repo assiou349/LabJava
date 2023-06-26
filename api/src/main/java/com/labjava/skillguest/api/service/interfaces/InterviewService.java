@@ -7,5 +7,9 @@ import com.labjava.skillguest.api.utils.dto.InterviewDto;
 public interface InterviewService  extends IService<Interview> {
     InterviewDto saveInterview(InterviewDto interviewDto);
 
+    InterviewDto updateInterview(InterviewDto interviewDto);
+
     Interview getInterviewsNotProcessedFromActor(String actor);
+
+    Interview getById(Long id);
 }

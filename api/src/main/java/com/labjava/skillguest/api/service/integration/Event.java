@@ -5,7 +5,9 @@ package com.labjava.skillguest.api.service.integration;
 import java.io.Serializable;
 
 public class Event implements Serializable {
-    public enum Type {INTERVIEW_CREATE, ELIGIBLE_TECH_FOUND, NO_TECH_AVAILABLE}
+    public enum Type {INTERVIEW_CREATE, ELIGIBLE_TECH_FOUND, NO_TECH_AVAILABLE,INTERVIEW_ACCEPTED
+        ,INTERVIEW_ALREADY_ACCEPTED;
+    }
     private String actor;
     private Event.Type eventType;
     private String data;

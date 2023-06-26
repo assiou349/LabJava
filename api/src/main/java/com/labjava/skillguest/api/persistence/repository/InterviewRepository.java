@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface InterviewRepository  extends JpaRepository<Interview, Long> {
-    @Override
-    Optional<Interview> findById(Long id);
 
     Interview findAllByRequesterEmailAndTechnicalAdvisorIsNull(String actor);
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class InterviewDto implements INotificationEntity {
     private Long id;
+    private Long idTechAdvisor;
     private String requesterName;
     private String requesterEmail;
     private String techEmail;

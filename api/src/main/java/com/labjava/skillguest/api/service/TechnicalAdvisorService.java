@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface TechnicalAdvisorService {
     List<TechnicalAdvisor> findEligibleAdvisors(Interview interview);
+
+    TechnicalAdvisor getByEmail(String email);
+
+    TechnicalAdvisor getById(Long id);
 }

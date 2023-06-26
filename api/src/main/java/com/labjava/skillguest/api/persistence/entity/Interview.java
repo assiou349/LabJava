@@ -40,4 +40,7 @@ public class Interview  implements IEntity {
 
     @Column(name = "urgent")
     private boolean urgent;
+
+    @Column(name = "closed")
+    private boolean closed;
 }

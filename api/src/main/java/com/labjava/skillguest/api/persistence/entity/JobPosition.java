@@ -1,6 +1,7 @@
 package com.labjava.skillguest.api.persistence.entity;
 
 
+import com.labjava.skillguest.api.persistence.interfaces.IEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class JobPosition {
+public class JobPosition  implements IEntity {
     @Id @GeneratedValue
     private Long id;
 

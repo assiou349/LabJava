@@ -28,4 +28,10 @@ public class InterviewController  {
         return interviewService.saveInterview(interviewDto);
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public InterviewDto updateInterview(@RequestBody InterviewDto interviewDto) {
+        return interviewService.updateInterview(interviewDto);
+    }
+
 }

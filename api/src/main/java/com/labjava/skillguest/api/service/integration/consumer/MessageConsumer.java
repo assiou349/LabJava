@@ -11,6 +11,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MessageConsumer {
@@ -28,8 +29,7 @@ public class MessageConsumer {
         this.technicalAdvisorService = technicalAdvisorService;
     }
 
-
-    @KafkaListener(topics = "${kafka.topics}", groupId = "app")
+    @KafkaListener(topics = "${spring.kafka.consumer.topic}", groupId = "app")
     public void onInterviewFound(Event event) {
 
         switch (event.getEventType()) {
@@ -42,9 +42,24 @@ public class MessageConsumer {
             case NO_TECH_AVAILABLE:
                 onEligibleTechNotFound(event);
                 break;
+            case INTERVIEW_ACCEPTED:
+                onInterviewAccepted(event);
+                break;
             default:
                 break;
         }
+
+    }
+
+    private void onInterviewAccepted(Event event) {
+        TechnicalAdvisor advisor = technicalAdvisorService.getByEmail(event.getActor());
+        List<Interview> interviews = advisor.getInterviews().stream().filter(interview -> interview.getJobPosition().getName().equals(event.getData()) && !interview.isClosed()).collect(Collectors.toList());
+        for (Interview interview : interviews) {
+            emailService.send(advisor.getEmail(), interview.getJobPosition().getName(), "Mail Affecte");
+            emailService.send(interview.getRequesterEmail(), interview.getJobPosition().getName(), "Mail Affecte a " + advisor.getName());
+
+        }
+
 
     }
 
