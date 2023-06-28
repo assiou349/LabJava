@@ -18,24 +18,38 @@ public class EmailService {
     final String fromEmail ; //requires valid gmail id
 
     final String password ; // correct password for gmail id
+    final String smtpHost;
+    final String tlsPort;
+    final String enableAuthentication;
+    final String enableStarttls;
 
     @Autowired
     private InterviewRepository interviewRepository;
 
-    public EmailService( @Value("${spring.mail.username}") final String fromEmail,
-                         @Value("${spring.mail.password}") final String password) {
+    public EmailService(@Value("${spring.mail.username}") final String fromEmail,
+                        @Value("${spring.mail.password}") final String password,
+                        @Value("${spring.mail.host}") String smtpHost,
+                        @Value("${spring.mail.port}")String tlsPort,
+                        @Value("${spring.mail.properties.mail.smtp.auth}")String enableAuthentification,
+                        @Value("${spring.mail.properties.mail.smtp.starttls.enable}")String enableStarttls,
+                        InterviewRepository interviewRepository) {
         this.fromEmail = fromEmail;
         this.password = password;
+        this.smtpHost = smtpHost;
+        this.tlsPort = tlsPort;
+        this.enableAuthentication = enableAuthentification;
+        this.enableStarttls = enableStarttls;
+        this.interviewRepository = interviewRepository;
     }
 
     public void send(String toMail, String subject, String text ){
 
         System.out.println("TLSEmail Start");
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-        props.put("mail.smtp.port", "587"); //TLS Port
-        props.put("mail.smtp.auth", "true"); //enable authentication
-        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
+        props.put("mail.smtp.host",smtpHost ); //SMTP Host
+        props.put("mail.smtp.port", tlsPort); //TLS Port
+        props.put("mail.smtp.auth", enableAuthentication); //enable authentication
+        props.put("mail.smtp.starttls.enable", enableStarttls); //enable STARTTLS
 
         //create Authenticator object to pass in Session.getInstance argument
         Authenticator auth = getAuthenticator();

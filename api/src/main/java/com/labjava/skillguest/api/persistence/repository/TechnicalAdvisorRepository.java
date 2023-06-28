@@ -8,8 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface TechnicalAdvisorRepository extends JpaRepository<TechnicalAdvisor, Long> {
-    @Override
-    Optional<TechnicalAdvisor> findById(Long aLong);
+   /* @Override
+    Optional<TechnicalAdvisor> findById(Long aLong);*/
 
     TechnicalAdvisor findByEmail(String mail);
 }

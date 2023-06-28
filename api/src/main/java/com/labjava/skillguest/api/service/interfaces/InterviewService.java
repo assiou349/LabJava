@@ -1,7 +1,7 @@
 package com.labjava.skillguest.api.service.interfaces;
 
 import com.labjava.skillguest.api.persistence.entity.Interview;
-import com.labjava.skillguest.api.utils.dto.InterviewDto;
+import com.labjava.skillguest.api.persistence.entity.dto.InterviewDto;
 
 
 public interface InterviewService  extends IService<Interview> {
@@ -12,4 +12,6 @@ public interface InterviewService  extends IService<Interview> {
     Interview getInterviewsNotProcessedFromActor(String actor);
 
     Interview getById(Long id);
+
+    void assignInterviewToTechAdvisor(Long interviewId, String email);
 }

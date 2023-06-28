@@ -1,9 +1,7 @@
 package com.labjava.skillguest.api.web.controllers;
 
-import com.labjava.skillguest.api.persistence.entity.LineOfBusiness;
 import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
-import com.labjava.skillguest.api.persistence.repository.LineOfBusinessRepository;
-import com.labjava.skillguest.api.persistence.repository.TechnicalAdvisorRepository;
+import com.labjava.skillguest.api.service.interfaces.TechnicalAdvisorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +11,17 @@ import java.util.List;
 @RequestMapping("/api/technical-advisor")
 public class TechnicalAdvisorController {
     @Autowired
-    private TechnicalAdvisorRepository technicalAdvisorRepository;
+    private TechnicalAdvisorService technicalAdvisorService;
 
-    @GetMapping
-    public List<TechnicalAdvisor> getAllTechnicalAdvisors() {
-        return technicalAdvisorRepository.findAll();
+
+    @GetMapping( "/{techAdvisorId}/{interviewID}" )
+    @ResponseBody
+    public void assignInterview(@PathVariable("techAdvisorId")  Long techAdvisorId,
+                                                    @PathVariable("interviewID") Long interviewID,
+                                                    @RequestBody String accepted) {
+         technicalAdvisorService.assignInterview(techAdvisorId,interviewID,accepted );
     }
 
-    @PostMapping
-    public TechnicalAdvisor createTechnicalAdvisor(@RequestBody TechnicalAdvisor technicalAdvisor) {
-        return technicalAdvisorRepository.save(technicalAdvisor);
-    }
+
 
 }

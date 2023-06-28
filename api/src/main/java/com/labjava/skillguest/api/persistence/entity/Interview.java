@@ -43,4 +43,7 @@ public class Interview  implements IEntity {
 
     @Column(name = "closed")
     private boolean closed;
+
+    private Long rejectNumber;
+
 }

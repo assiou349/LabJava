@@ -1,11 +1,8 @@
 package com.labjava.skillguest.api.utils.mappers;
 
 import com.labjava.skillguest.api.persistence.entity.Interview;
-import com.labjava.skillguest.api.persistence.entity.JobPosition;
 import com.labjava.skillguest.api.utils.LevelOfExpertise;
-import com.labjava.skillguest.api.persistence.repository.JobPositionRepository;
-import com.labjava.skillguest.api.utils.dto.InterviewDto;
-import org.mapstruct.Context;
+import com.labjava.skillguest.api.persistence.entity.dto.InterviewDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

@@ -1,4 +1,4 @@
-package com.labjava.skillguest.api.utils.dto;
+package com.labjava.skillguest.api.persistence.entity.dto;
 
 
 import lombok.Data;

@@ -5,12 +5,13 @@ import com.labjava.skillguest.api.persistence.entity.JobPosition;
 import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
 import com.labjava.skillguest.api.persistence.repository.InterviewRepository;
 import com.labjava.skillguest.api.service.interfaces.TechnicalAdvisorService;
-import com.labjava.skillguest.api.service.integration.Event;
+import com.labjava.skillguest.api.persistence.entity.dto.Event;
 import com.labjava.skillguest.api.service.interfaces.AbstractService;
 import com.labjava.skillguest.api.service.interfaces.InterviewService;
 import com.labjava.skillguest.api.service.interfaces.JobPositionService;
 import com.labjava.skillguest.api.service.interfaces.MessagingService;
-import com.labjava.skillguest.api.utils.dto.InterviewDto;
+import com.labjava.skillguest.api.persistence.entity.dto.InterviewDto;
+import com.labjava.skillguest.api.service.mail.EmailService;
 import com.labjava.skillguest.api.utils.mappers.EntityMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,14 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
     private final InterviewRepository interviewRepository;
     private final MessagingService messagingService;
     private final TechnicalAdvisorService technicalAdvisorService;
+    private final EmailService emailService;
+
 
     private final EntityMapper entityMapper;
 
-    public InterviewServiceImpl(EntityMapper entityMapper, JobPositionService jobPositionService, InterviewRepository interviewRepository, @Qualifier("technicalAdvisorMessageProducer")MessagingService messagingService, TechnicalAdvisorService technicalAdvisorService) {
+    public InterviewServiceImpl(EntityMapper entityMapper, JobPositionService jobPositionService,
+                                InterviewRepository interviewRepository,
+                                @Qualifier("interviewMessageProducer") MessagingService messagingService, TechnicalAdvisorService technicalAdvisorService, EmailService emailService) {
         super();
         this.entityMapper = entityMapper;
 
@@ -34,6 +39,7 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
         this.interviewRepository = interviewRepository;
         this.messagingService = messagingService;
         this.technicalAdvisorService = technicalAdvisorService;
+        this.emailService = emailService;
     }
 
 
@@ -55,8 +61,8 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
         Event event =  new Event();
         event.setEventType((Event.Type.INTERVIEW_CREATE));
-        event.setActor(interview.getRequesterEmail());
-        event.setData(interview.getJobPosition().getName());
+        event.setEmail(interview.getRequesterEmail());
+        event.setInterviewId(interview.getId());
 
         messagingService.sendMessage( event);
 
@@ -65,23 +71,6 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
     @Override
     public InterviewDto updateInterview(InterviewDto interviewDto) {
-        Event event =  new Event();
-
-        Interview interview = getById(interviewDto.getId());
-        if (null == interview.getTechnicalAdvisor()) {
-            TechnicalAdvisor advisorServiceById = technicalAdvisorService.getById(interviewDto.getIdTechAdvisor());
-            advisorServiceById.setActive(false);
-            interview.setTechnicalAdvisor(advisorServiceById);
-            update(interview);
-            event.setEventType((Event.Type.INTERVIEW_ACCEPTED));
-
-        }
-        event.setEventType((Event.Type.INTERVIEW_ALREADY_ACCEPTED));
-
-        event.setActor(interview.getTechnicalAdvisor().getEmail());
-        event.setData(interview.getJobPosition().getName());
-        messagingService.sendMessage( event);
-
         return interviewDto;
     }
 
@@ -93,5 +82,19 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
     @Override
     public Interview getById(Long id) {
         return findOne(id);
+    }
+
+    @Override
+    public void assignInterviewToTechAdvisor(Long interviewId, String email) {
+        Interview interview = getById(interviewId);
+        if (null == interview.getTechnicalAdvisor()) {
+            TechnicalAdvisor advisor = technicalAdvisorService.getByEmail(email);
+            advisor.setActive(false);
+            interview.setTechnicalAdvisor(advisor);
+            update(interview);
+            emailService.send(advisor.getEmail(), interview.getJobPosition().getName(), "Interview Assignee");
+            emailService.send(interview.getRequesterEmail(), "Demande d'assignation d'interview accepte", advisor.getName()+ "  "+advisor.getEmail()+" "+interview.getJobPosition().getName());
+        }
+
     }
 }

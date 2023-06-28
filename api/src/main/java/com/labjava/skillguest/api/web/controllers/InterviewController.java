@@ -1,7 +1,7 @@
 package com.labjava.skillguest.api.web.controllers;
 
 import com.labjava.skillguest.api.service.interfaces.InterviewService;
-import com.labjava.skillguest.api.utils.dto.InterviewDto;
+import com.labjava.skillguest.api.persistence.entity.dto.InterviewDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

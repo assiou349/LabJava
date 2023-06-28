@@ -11,4 +11,6 @@ public interface TechnicalAdvisorService {
     TechnicalAdvisor getByEmail(String email);
 
     TechnicalAdvisor getById(Long id);
+
+    void assignInterview(Long techAdvisorId, Long interviewID, String accept);
 }
