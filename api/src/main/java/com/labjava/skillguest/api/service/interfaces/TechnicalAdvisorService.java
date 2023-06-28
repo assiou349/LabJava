@@ -1,4 +1,4 @@
-package com.labjava.skillguest.api.service;
+package com.labjava.skillguest.api.service.interfaces;
 
 import com.labjava.skillguest.api.persistence.entity.Interview;
 import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;

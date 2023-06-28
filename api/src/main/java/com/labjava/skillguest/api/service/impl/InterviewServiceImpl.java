@@ -4,7 +4,7 @@ import com.labjava.skillguest.api.persistence.entity.Interview;
 import com.labjava.skillguest.api.persistence.entity.JobPosition;
 import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
 import com.labjava.skillguest.api.persistence.repository.InterviewRepository;
-import com.labjava.skillguest.api.service.TechnicalAdvisorService;
+import com.labjava.skillguest.api.service.interfaces.TechnicalAdvisorService;
 import com.labjava.skillguest.api.service.integration.Event;
 import com.labjava.skillguest.api.service.interfaces.AbstractService;
 import com.labjava.skillguest.api.service.interfaces.InterviewService;
@@ -12,6 +12,7 @@ import com.labjava.skillguest.api.service.interfaces.JobPositionService;
 import com.labjava.skillguest.api.service.interfaces.MessagingService;
 import com.labjava.skillguest.api.utils.dto.InterviewDto;
 import com.labjava.skillguest.api.utils.mappers.EntityMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
@@ -25,7 +26,7 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
 
     private final EntityMapper entityMapper;
 
-    public InterviewServiceImpl(EntityMapper entityMapper, JobPositionService jobPositionService, InterviewRepository interviewRepository, MessagingService messagingService, TechnicalAdvisorService technicalAdvisorService) {
+    public InterviewServiceImpl(EntityMapper entityMapper, JobPositionService jobPositionService, InterviewRepository interviewRepository, @Qualifier("technicalAdvisorMessageProducer")MessagingService messagingService, TechnicalAdvisorService technicalAdvisorService) {
         super();
         this.entityMapper = entityMapper;
 

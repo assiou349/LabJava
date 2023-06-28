@@ -6,7 +6,7 @@ import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
 import com.labjava.skillguest.api.persistence.repository.TechnicalAdvisorRepository;
 import com.labjava.skillguest.api.service.interfaces.AbstractService;
 import com.labjava.skillguest.api.service.interfaces.SkillService;
-import com.labjava.skillguest.api.service.TechnicalAdvisorService;
+import com.labjava.skillguest.api.service.interfaces.TechnicalAdvisorService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

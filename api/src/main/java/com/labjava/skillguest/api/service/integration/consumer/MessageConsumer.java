@@ -2,11 +2,12 @@ package com.labjava.skillguest.api.service.integration.consumer;
 
 import com.labjava.skillguest.api.persistence.entity.Interview;
 import com.labjava.skillguest.api.persistence.entity.TechnicalAdvisor;
-import com.labjava.skillguest.api.service.TechnicalAdvisorService;
+import com.labjava.skillguest.api.service.interfaces.TechnicalAdvisorService;
 import com.labjava.skillguest.api.service.integration.Event;
 import com.labjava.skillguest.api.service.interfaces.InterviewService;
 import com.labjava.skillguest.api.service.interfaces.MessagingService;
 import com.labjava.skillguest.api.service.mail.EmailService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class MessageConsumer {
     private final EmailService emailService;
     private final TechnicalAdvisorService technicalAdvisorService;
 
-    public MessageConsumer(InterviewService interviewService, MessagingService messagingService, EmailService emailService, TechnicalAdvisorService technicalAdvisorService) {
+    public MessageConsumer(InterviewService interviewService, @Qualifier("technicalAdvisorMessageProducer") MessagingService messagingService, EmailService emailService, TechnicalAdvisorService technicalAdvisorService) {
         this.interviewService = interviewService;
         this.messagingService = messagingService;
         this.emailService = emailService;

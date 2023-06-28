@@ -59,7 +59,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         // Créer une instance de TechnicalAdvisor
         TechnicalAdvisor technicalAdvisor = new TechnicalAdvisor();
         technicalAdvisor.setName("Technical Advisor");
-        technicalAdvisor.setEmail("technical.advisor@example.com");
+        technicalAdvisor.setEmail("assiou349@gmail.com");
         technicalAdvisor.setActive(true);
 
         // Enregistrer le TechnicalAdvisor dans la base de données

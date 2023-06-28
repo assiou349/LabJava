@@ -2,11 +2,13 @@ package com.labjava.skillguest.api.service.impl;
 
 import com.labjava.skillguest.api.service.integration.Event;
 import com.labjava.skillguest.api.service.interfaces.MessagingService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@Qualifier("messagingService")
 public class MessagingServiceImpl implements MessagingService {
 
 
@@ -26,9 +28,6 @@ public class MessagingServiceImpl implements MessagingService {
         kafkaTemplate.flush();
     }
 
-    @Override
-    public void consumeMessage( ) {
 
-    }
 
 }

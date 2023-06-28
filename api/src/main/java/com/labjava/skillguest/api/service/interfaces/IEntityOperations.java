@@ -4,7 +4,7 @@ import com.labjava.skillguest.api.persistence.interfaces.IEntity;
 
 import java.util.List;
 
-public interface IOperations<T extends IEntity> {
+public interface IEntityOperations<T extends IEntity> {
 
 
     T findOne(final long id);

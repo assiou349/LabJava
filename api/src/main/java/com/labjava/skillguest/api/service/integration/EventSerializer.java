@@ -1,3 +1,4 @@
+/*
 package com.labjava.skillguest.api.service.integration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,3 +26,4 @@ public class EventSerializer  implements Serializer<Event> {
         return new byte[0];
     }
 }
+*/

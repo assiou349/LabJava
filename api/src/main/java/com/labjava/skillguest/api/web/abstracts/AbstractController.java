@@ -1,7 +1,7 @@
 package com.labjava.skillguest.api.web.abstracts;
 
 import com.labjava.skillguest.api.persistence.interfaces.IEntity;
-import com.labjava.skillguest.api.service.interfaces.IOperations;
+import com.labjava.skillguest.api.service.interfaces.IEntityOperations;
 import com.labjava.skillguest.api.utils.RestPreconditions;
 
 public abstract class AbstractController<T extends IEntity>  {
@@ -14,5 +14,5 @@ public abstract class AbstractController<T extends IEntity>  {
     }
 
 
-    protected abstract IOperations<T> getService();
+    protected abstract IEntityOperations<T> getService();
 }

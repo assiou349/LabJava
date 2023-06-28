@@ -1,3 +1,4 @@
+/*
 package com.labjava.skillguest.api.service.integration;
 
 
@@ -29,3 +30,4 @@ public class EventDeserializer implements Deserializer<Event> {
         return null;
     }
 }
+*/

@@ -8,21 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractRawService<T extends IEntity> implements IOperations<T> {
+public abstract class AbstractRawService<T extends IEntity> implements IEntityOperations<T> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Autowired
-    protected ApplicationEventPublisher eventPublisher;
 
     public AbstractRawService() {
         super();

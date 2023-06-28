@@ -1,10 +1,9 @@
 package com.labjava.skillguest.api.utils.dto;
 
 
-import com.labjava.skillguest.api.persistence.interfaces.INotificationEntity;
 import lombok.Data;
 @Data
-public class InterviewDto implements INotificationEntity {
+public class InterviewDto   {
     private Long id;
     private Long idTechAdvisor;
     private String requesterName;
@@ -15,8 +14,4 @@ public class InterviewDto implements INotificationEntity {
     private String description;
     private boolean urgent;
 
-    @Override
-    public String getSubjet() {
-        return jobPosition;
-    }
 }

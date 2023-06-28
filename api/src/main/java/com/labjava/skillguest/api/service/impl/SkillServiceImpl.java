@@ -21,6 +21,6 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public List<Skill> getSkillByJobPositionAndLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise) {
-        return skillRepository.findAllByJobPositionAndLevelOfExpertiseLessThan(jobPosition, levelOfExpertise);
+        return skillRepository.findAllByJobPositionInAndLevelOfExpertiseGreaterThanEqual(List.of(jobPosition,jobPosition.getSuperiorPosition()), levelOfExpertise);
     }
 }
