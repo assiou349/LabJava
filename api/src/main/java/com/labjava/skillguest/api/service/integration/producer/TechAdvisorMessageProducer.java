@@ -12,19 +12,18 @@ import org.springframework.stereotype.Service;
 @Qualifier("technicalAdvisorMessageProducer")
 public class TechAdvisorMessageProducer implements MessagingService {
 
-    private final MessagingServiceImpl messagingService;
 
-    @Value("${spring.kafka.consumer.technicalAdvisor.topic}")
+    private  KafkaTemplate<String, Event> kafkaTemplate;
+    @Value("${spring.kafka.consumer.interview.topic}")
     private String topicName;
 
     public TechAdvisorMessageProducer(KafkaTemplate<String, Event> kafkaTemplate) {
-        this.messagingService = new MessagingServiceImpl( topicName, kafkaTemplate);
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @Override
     public void sendMessage(Event message) {
-        messagingService.sendMessage(message);
+        kafkaTemplate.send(topicName, message);
+        kafkaTemplate.flush();
     }
-
-
 }
