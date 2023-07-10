@@ -65,7 +65,8 @@ public class InterviewMessageConsumer {
         if (interview != null) {
             List<TechnicalAdvisor> eligibleAdvisors = technicalAdvisorService.findEligibleAdvisors(interview)
                     .stream()
-                    .filter(technicalAdvisor -> technicalAdvisor.getTechnicalAdvisorInterviews().stream().noneMatch(t -> t.getInterview().equals(interview) && !t.isRefused()))
+                    .filter(technicalAdvisor -> technicalAdvisor.getTechnicalAdvisorInterviews() == null ||
+                            technicalAdvisor.getTechnicalAdvisorInterviews().stream().noneMatch(t -> t.getInterview().equals(interview)))
                     .limit(limit)
                     .collect(Collectors.toList());
 

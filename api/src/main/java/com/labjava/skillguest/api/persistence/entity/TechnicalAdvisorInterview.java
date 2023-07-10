@@ -4,6 +4,7 @@ package com.labjava.skillguest.api.persistence.entity;
 import com.labjava.skillguest.api.persistence.interfaces.IEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "technical_advisor_interview")
+@EqualsAndHashCode
 public class TechnicalAdvisorInterview   implements IEntity  {
 
     @Id

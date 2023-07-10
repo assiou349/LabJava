@@ -7,6 +7,7 @@ import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import jakarta.persistence.*;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "Interview")
+@EqualsAndHashCode
 public class Interview  implements IEntity {
     @Id @GeneratedValue
     private Long id;
