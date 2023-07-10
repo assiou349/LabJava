@@ -57,22 +57,7 @@ public class TechnicalAdvisorServiceImpl extends AbstractService<TechnicalAdviso
         return updateAdvisor(technicalAdvisor);
     }
 
-    @Override
-    public void askInterviewAssignment(Long techAdvisorId, Long interviewID, boolean accepted) {
-        Interview interview = interviewRepository.findById(interviewID).orElse(null);
-        if (interview != null) {
-            TechnicalAdvisor technicalAdvisor = getById(techAdvisorId);
-            Event event =  new Event();
-            event.setInterviewId(interviewID);
-            event.setEmail(technicalAdvisor.getEmail());
-            if ( technicalAdvisor != null  && accepted) {
-                event.setEventType((Event.Type.INTERVIEW_ACCEPTED));
-            } else {
-                event.setEventType((Event.Type.INTERVIEW_REFUSED));
-            }
-            messagingService.sendMessage(event);
-        }
-    }
+
 
     @Override
     protected JpaRepository<TechnicalAdvisor, Long> getDao() {

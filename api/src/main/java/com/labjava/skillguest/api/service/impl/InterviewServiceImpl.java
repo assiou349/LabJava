@@ -99,7 +99,7 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
     private void sendRelanceEmail(Interview interview) {
         Event event = new Event();
         if(isInterviewRefusedByAllAdvisor(interview)){
-            event.setEventType((Event.Type.INTERVIEW_REFUSED));
+            event.setEventType((Event.Type.ALL_ADVISOR_REFUSE));
         }else {
             event.setEventType((Event.Type.RELANCE_INTERVIEW));
         }

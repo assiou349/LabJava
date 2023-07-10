@@ -12,16 +12,4 @@ import java.util.List;
 public class TechnicalAdvisorController {
     @Autowired
     private TechnicalAdvisorService technicalAdvisorService;
-
-
-    @PutMapping( "/{techAdvisorId}/{interviewID}" )
-    @ResponseBody
-    public void askInterviewAssignment(@PathVariable("techAdvisorId")  Long techAdvisorId,
-                                                    @PathVariable("interviewID") Long interviewID,
-                                                    @RequestBody boolean accepted) {
-         technicalAdvisorService.askInterviewAssignment(techAdvisorId,interviewID,accepted );
-    }
-
-
-
 }

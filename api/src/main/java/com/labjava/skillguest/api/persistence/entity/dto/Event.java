@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 @Data
 public class Event implements Serializable {
-    public enum Type {INTERVIEW_CREATE, ELIGIBLE_TECH_FOUND, NO_TECH_AVAILABLE,INTERVIEW_ACCEPTED
+
+    public enum Type {INTERVIEW_CREATE, ALL_ADVISOR_REFUSE,INTERVIEW_ACCEPTED
         ,RELANCE_INTERVIEW,INTERVIEW_REFUSED;
     }
     private String email;

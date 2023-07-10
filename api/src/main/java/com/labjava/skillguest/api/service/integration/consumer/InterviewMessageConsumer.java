@@ -48,6 +48,9 @@ public class InterviewMessageConsumer {
             case RELANCE_INTERVIEW:
                 onInterviewCreated(event);
                 break;
+            case ALL_ADVISOR_REFUSE:
+                onInterviewRefusedByAllAdvisor(event);
+                break;
             default:
                 break;
         }
@@ -82,7 +85,7 @@ public class InterviewMessageConsumer {
     }
 
 
-    private void onInterviewRefused(Event event) {
+    private void onInterviewRefusedByAllAdvisor(Event event) {
         Interview interview = interviewService.getById(event.getInterviewId());
         emailService.send(event.getEmail(), "INTERVIEW REFUSE PAR TOUS LES REFERENTS", interview.getJobPosition().getName());
     }

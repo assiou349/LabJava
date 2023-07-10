@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface TechnicalAdvisorInterviewService {
     TechnicalAdvisorInterview save(TechnicalAdvisorInterview technicalAdvisorInterview);
+
+    void askInterviewAssignment(Long techAdvisorId, Long interviewID, boolean accepted);
 }

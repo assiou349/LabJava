@@ -14,5 +14,4 @@ public interface TechnicalAdvisorService {
 
     TechnicalAdvisor updateAdvisor(TechnicalAdvisor technicalAdvisor);
 
-    void askInterviewAssignment(Long techAdvisorId, Long interviewID, boolean accept);
 }
