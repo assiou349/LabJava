@@ -25,7 +25,7 @@ public class TechnicalAdvisorInterview   implements IEntity  {
     @JoinColumn(name = "interview_id")
     private Interview interview;
 
-    @Column(name = "accepted")
+    @Column(name = "refused")
     private boolean refused;
 
     // getters and setters
