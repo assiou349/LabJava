@@ -14,12 +14,12 @@ public class TechnicalAdvisorController {
     private TechnicalAdvisorService technicalAdvisorService;
 
 
-    @GetMapping( "/{techAdvisorId}/{interviewID}" )
+    @PutMapping( "/{techAdvisorId}/{interviewID}" )
     @ResponseBody
-    public void assignInterview(@PathVariable("techAdvisorId")  Long techAdvisorId,
+    public void askInterviewAssignment(@PathVariable("techAdvisorId")  Long techAdvisorId,
                                                     @PathVariable("interviewID") Long interviewID,
-                                                    @RequestBody String accepted) {
-         technicalAdvisorService.assignInterview(techAdvisorId,interviewID,accepted );
+                                                    @RequestBody boolean accepted) {
+         technicalAdvisorService.askInterviewAssignment(techAdvisorId,interviewID,accepted );
     }
 
 

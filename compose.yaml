@@ -7,7 +7,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - "22181:2181"
+      - 22181:2181
     volumes:
       - ./pub-technology/zookeeper/data:/data
       - ./pub-technology/zookeeper/datalog:/datalog
@@ -17,7 +17,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "29092:29092"
+      - 29092:29092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -32,7 +32,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "39092:39092"
+      - 39092:39092
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -42,12 +42,12 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - ./pub-technology/kafka2/data:/var/lib/kafka/data
+
   manager:
     image: sheepkiller/kafka-manager
     ports:
-      - "9000:9000"
+      - 9000:9000
     environment:
       ZK_HOSTS: zookeeper:2181
     depends_on:
       - zookeeper
-

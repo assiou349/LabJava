@@ -25,7 +25,10 @@ public class TechnicalAdvisor implements IEntity {
     @Column(name = "status")
     private boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    List<Interview> interviews;
+    @OneToMany(mappedBy = "technicalAdvisor")
+    List<Skill> skills;
+
+    @OneToMany(mappedBy = "technicalAdvisor")
+    private List<TechnicalAdvisorInterview> technicalAdvisorInterviews;
 
 }

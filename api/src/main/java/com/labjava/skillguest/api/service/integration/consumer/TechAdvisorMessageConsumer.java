@@ -51,10 +51,8 @@ public class TechAdvisorMessageConsumer {
     }
 
     private void onInterviewRefused(Event event) {
-        Interview interview = interviewService.getById(event.getInterviewId());
-        Long rejectNumber = interview.getRejectNumber();
-        interview.setRejectNumber(rejectNumber++);
-        interviewService.update(interview);
+        interviewService.setInterviewAsRefusedByAdvisor(event.getInterviewId(), event.getEmail());
+
 
     }
 

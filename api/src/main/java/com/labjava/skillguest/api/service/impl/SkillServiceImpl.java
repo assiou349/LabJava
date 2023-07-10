@@ -8,6 +8,7 @@ import com.labjava.skillguest.api.service.interfaces.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +21,13 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public List<Skill> getSkillByJobPositionAndLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise) {
-        return skillRepository.findAllByJobPositionInAndLevelOfExpertiseGreaterThanEqual(List.of(jobPosition,jobPosition.getSuperiorPosition()), levelOfExpertise);
+    public List<Skill> getAllSkillByJobPositionOrSuperiorJobPositonMatchingLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise) {
+        List<JobPosition> jobPositions = new ArrayList<>();
+        jobPositions.add(jobPosition);
+        while (jobPosition.getSuperiorPosition() != null) {
+            jobPositions.add(jobPosition.getSuperiorPosition());
+            jobPosition = jobPosition.getSuperiorPosition();
+        }
+        return skillRepository.findAllByJobPositionInAndLevelOfExpertiseGreaterThanEqual(jobPositions, levelOfExpertise);
     }
 }

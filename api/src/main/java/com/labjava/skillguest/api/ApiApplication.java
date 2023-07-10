@@ -29,6 +29,6 @@ public class ApiApplication  implements CommandLineRunner    {
         String to = "recipient@example.com";
         String subject = "Test d'e-mail";
         String text = "Ceci est un e-mail de test envoyé depuis Java et Spring Boot.";
-        emailService.send("assiou349@gmail.com", subject, text);
+       // emailService.send("assiou349@gmail.com", subject, text);
         }
 }

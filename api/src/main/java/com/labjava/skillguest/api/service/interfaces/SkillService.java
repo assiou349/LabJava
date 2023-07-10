@@ -6,5 +6,5 @@ import com.labjava.skillguest.api.utils.LevelOfExpertise;
 import java.util.List;
 
 public interface SkillService {
-    List<Skill> getSkillByJobPositionAndLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise);
+    List<Skill> getAllSkillByJobPositionOrSuperiorJobPositonMatchingLevelOfExpertise(JobPosition jobPosition, LevelOfExpertise levelOfExpertise);
 }

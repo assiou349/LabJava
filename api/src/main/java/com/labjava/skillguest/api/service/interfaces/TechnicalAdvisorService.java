@@ -12,5 +12,7 @@ public interface TechnicalAdvisorService {
 
     TechnicalAdvisor getById(Long id);
 
-    void assignInterview(Long techAdvisorId, Long interviewID, String accept);
+    TechnicalAdvisor updateAdvisor(TechnicalAdvisor technicalAdvisor);
+
+    void askInterviewAssignment(Long techAdvisorId, Long interviewID, boolean accept);
 }

@@ -14,4 +14,6 @@ public interface InterviewService  extends IService<Interview> {
     Interview getById(Long id);
 
     void assignInterviewToTechAdvisor(Long interviewId, String email);
+
+    void setInterviewAsRefusedByAdvisor(Long interviewId, String email);
 }

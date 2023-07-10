@@ -10,11 +10,13 @@ import com.labjava.skillguest.api.service.interfaces.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class TechnicalAdvisorServiceImpl extends AbstractService<TechnicalAdvisor> implements TechnicalAdvisorService {
 
     private final SkillService SkillService;
@@ -35,7 +37,7 @@ public class TechnicalAdvisorServiceImpl extends AbstractService<TechnicalAdviso
 
     @Override
     public List<TechnicalAdvisor> findEligibleAdvisors(Interview interview) {
-        return SkillService.getSkillByJobPositionAndLevelOfExpertise(interview.getJobPosition(), interview.getLevelOfExpertise())
+        return SkillService.getAllSkillByJobPositionOrSuperiorJobPositonMatchingLevelOfExpertise(interview.getJobPosition(), interview.getLevelOfExpertise())
                 .stream().map( Skill::getTechnicalAdvisor).collect(Collectors.toList());
     }
 
@@ -51,14 +53,19 @@ public class TechnicalAdvisorServiceImpl extends AbstractService<TechnicalAdviso
     }
 
     @Override
-    public void assignInterview(Long techAdvisorId, Long interviewID, String accepted) {
+    public TechnicalAdvisor updateAdvisor(TechnicalAdvisor technicalAdvisor) {
+        return updateAdvisor(technicalAdvisor);
+    }
+
+    @Override
+    public void askInterviewAssignment(Long techAdvisorId, Long interviewID, boolean accepted) {
         Interview interview = interviewRepository.findById(interviewID).orElse(null);
         if (interview != null) {
             TechnicalAdvisor technicalAdvisor = getById(techAdvisorId);
             Event event =  new Event();
             event.setInterviewId(interviewID);
             event.setEmail(technicalAdvisor.getEmail());
-            if (interview != null && technicalAdvisor != null  && Boolean.parseBoolean(accepted)) {
+            if ( technicalAdvisor != null  && accepted) {
                 event.setEventType((Event.Type.INTERVIEW_ACCEPTED));
             } else {
                 event.setEventType((Event.Type.INTERVIEW_REFUSED));

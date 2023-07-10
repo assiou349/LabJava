@@ -1,7 +1,6 @@
 package com.labjava.skillguest.api.service.integration.producer;
 
 import com.labjava.skillguest.api.persistence.entity.dto.Event;
-import com.labjava.skillguest.api.service.impl.MessagingServiceImpl;
 import com.labjava.skillguest.api.service.interfaces.MessagingService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

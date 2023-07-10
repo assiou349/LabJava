@@ -8,6 +8,9 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -25,8 +28,7 @@ public class Interview  implements IEntity {
     @Column(name = "person_to_meet")
     private String personToMeet;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "job_position_id")
     private JobPosition jobPosition;
 
@@ -44,6 +46,14 @@ public class Interview  implements IEntity {
     @Column(name = "closed")
     private boolean closed;
 
-    private Long rejectNumber;
+    @Column(name = "refused")
+    private boolean refused;
+
+    @Column(name = "request_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date requestDate;
+
+    @OneToMany(mappedBy = "interview")
+    private List<TechnicalAdvisorInterview> technicalAdvisorInterviews;
 
 }
