@@ -47,7 +47,6 @@ public class TechnicalAdvisorServiceImpl extends AbstractService<TechnicalAdviso
         return technicalAdvisorRepository.findByEmail(email);
     }
 
-    @Override
     public TechnicalAdvisor getById(Long id) {
         return findOne(id);
     }

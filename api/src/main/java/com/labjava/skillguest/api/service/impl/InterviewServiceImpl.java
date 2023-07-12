@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -56,23 +57,29 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
     }
 
 
-    @Scheduled(fixedRateString = "${some.profile.cron}")
+    @Scheduled(fixedRateString = "${profile.cron}")
     public void checkUnansweredInterviews() {
-        processInterviews(this::isInterviewUnanswered);
-        processInterviews(this::isInterviewRefusedByAllAdvisor);
+        processInterviews(findInterviewUnanswered());
+        processInterviews(findInterviewsRefusedByAllAdvisorByPredicate());
 
     }
 
 
-    private void processInterviews(Predicate<Interview> interviewPredicate) {
-        List<Interview> interviews = findInterviewsByPredicate(interviewPredicate);
+    private void processInterviews(List<Interview> interviews) {
         sendRelanceEmails(interviews);
     }
 
-    private List<Interview> findInterviewsByPredicate(Predicate<Interview> interviewPredicate) {
-        return interviewRepository.findAll()
+    private List<Interview> findInterviewUnanswered() {
+        return interviewRepository.findAllByRequestDateIsLessThanEqual(substractHoursToDate(new Date()))
                 .stream()
-                .filter(interviewPredicate)
+                .filter(this::isInterviewUnanswered)
+                .collect(Collectors.toList());
+    }
+
+    private List<Interview> findInterviewsRefusedByAllAdvisorByPredicate() {
+        return interviewRepository.findAllByTechnicalAdvisorInterviewsIsNotNullAndRequestDateIsLessThanAndClosedIsFalse(substractHoursToDate(new Date()))
+                .stream()
+                .filter(this::isInterviewRefusedByAllAdvisor)
                 .collect(Collectors.toList());
     }
 
@@ -81,17 +88,19 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
         return null == interview.getTechnicalAdvisorInterviews()
                 || interview.getTechnicalAdvisorInterviews().isEmpty()
                 || (technicalAdvisorService.findEligibleAdvisors(interview).size() != interview.getTechnicalAdvisorInterviews().size()
-                && interview.getTechnicalAdvisorInterviews().stream().noneMatch(technicalAdvisorInterview -> !technicalAdvisorInterview.isRefused()))
-                && isDeadLinePassed(interview.getRequestDate());
+                && interview.getTechnicalAdvisorInterviews().stream().noneMatch(technicalAdvisorInterview -> !technicalAdvisorInterview.getRefused().equals(1L)));
     }
 
     private boolean isInterviewRefusedByAllAdvisor(Interview interview) {
-        return null != interview.getTechnicalAdvisorInterviews()
-                && !interview.getTechnicalAdvisorInterviews().isEmpty()
-                && technicalAdvisorService.findEligibleAdvisors(interview).size() == interview.getTechnicalAdvisorInterviews().size()
-                && !interview.isClosed();
+        return technicalAdvisorService.findEligibleAdvisors(interview).size() == interview.getTechnicalAdvisorInterviews().size();
     }
 
+    public Date substractHoursToDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, - deadLine);
+        return calendar.getTime();
+    }
     private void sendRelanceEmails(List<Interview> interviews) {
         interviews.forEach(this::sendRelanceEmail);
     }
@@ -166,7 +175,7 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
             TechnicalAdvisorInterview technicalAdvisorInterview = new TechnicalAdvisorInterview();
             technicalAdvisorInterview.setTechnicalAdvisor(advisor);
             technicalAdvisorInterview.setInterview(interview);
-            technicalAdvisorInterview.setRefused(true);
+            technicalAdvisorInterview.setRefused(1L);
 
             technicalAdvisorInterviewService.save(technicalAdvisorInterview);
             advisor.setActive(false);
@@ -189,7 +198,7 @@ public class InterviewServiceImpl extends AbstractService<Interview>  implements
             TechnicalAdvisorInterview technicalAdvisorInterview = new TechnicalAdvisorInterview();
             technicalAdvisorInterview.setTechnicalAdvisor(advisor);
             technicalAdvisorInterview.setInterview(interview);
-            technicalAdvisorInterview.setRefused(true); // ou
+            technicalAdvisorInterview.setRefused(0L); // ou
 
               }
     }

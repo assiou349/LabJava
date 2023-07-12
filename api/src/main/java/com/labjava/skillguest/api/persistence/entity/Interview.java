@@ -48,9 +48,6 @@ public class Interview  implements IEntity {
     @Column(name = "closed")
     private boolean closed;
 
-    @Column(name = "refused")
-    private boolean refused;
-
     @Column(name = "request_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date requestDate;

@@ -95,7 +95,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             TechnicalAdvisorInterview tai = new TechnicalAdvisorInterview();
             tai.setTechnicalAdvisor(technicalAdvisorList.get(i));
             tai.setInterview(interviewList.get(i));
-            tai.setRefused(false);
+            tai.setRefused(0L);
             technicalAdvisorInterviewRepository.save(tai);
         }
 

@@ -46,7 +46,7 @@ public class InterviewMessageConsumer {
         switch (event.getEventType()) {
             case INTERVIEW_CREATE:
             case RELANCE_INTERVIEW:
-                onInterviewCreated(event);
+                onInterviewCreatedOrRelanched(event);
                 break;
             case ALL_ADVISOR_REFUSE:
                 onInterviewRefusedByAllAdvisor(event);
@@ -57,9 +57,7 @@ public class InterviewMessageConsumer {
 
     }
 
-
-
-    private void onInterviewCreated(Event event) {
+    private void onInterviewCreatedOrRelanched(Event event) {
         Interview interview = interviewService.getById(event.getInterviewId());
         int limit  = interview.isUrgent() ? urgenceNumberOfAdvisorToNotifyOnce :numberOfAdvisorToNotifyOnce;
         if (interview != null) {

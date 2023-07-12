@@ -28,7 +28,7 @@ public class TechnicalAdvisorInterview   implements IEntity  {
     private Interview interview;
 
     @Column(name = "refused")
-    private boolean refused;
+    private Long refused;
 
     // getters and setters
 }
