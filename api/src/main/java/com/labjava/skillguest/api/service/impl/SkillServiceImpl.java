@@ -28,6 +28,9 @@ public class SkillServiceImpl implements SkillService {
             jobPositions.add(jobPosition.getSuperiorPosition());
             jobPosition = jobPosition.getSuperiorPosition();
         }
-        return skillRepository.findAllByJobPositionInAndLevelOfExpertiseGreaterThanEqual(jobPositions, levelOfExpertise);
+        List<Skill> allSkillByJobPosition = skillRepository.findAllByJobPositionIn(jobPositions);
+        return allSkillByJobPosition !=null && !allSkillByJobPosition.isEmpty() ? allSkillByJobPosition :
+                skillRepository.findAllByLevelOfExpertiseGreaterThanEqual( levelOfExpertise);
+
     }
 }

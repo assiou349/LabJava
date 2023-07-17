@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
-    List<Skill> findAllByJobPositionInAndLevelOfExpertiseGreaterThanEqual(List<JobPosition> jobPositionList, LevelOfExpertise levelOfExpertise);
+    List<Skill> findAllByJobPositionIn(List<JobPosition> jobPositionList);
+    List<Skill> findAllByLevelOfExpertiseGreaterThanEqual( LevelOfExpertise levelOfExpertise);
 }
 
